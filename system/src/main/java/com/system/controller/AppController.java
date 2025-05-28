@@ -59,14 +59,38 @@ public class AppController {
 		}
 		return "Student not found";
 	}
-	
+
 	@GetMapping("courses")
-	public Map<String, Course> getCourses(){
+	public Map<String, Course> getCourses() {
 		return mcourses;
 	}
-	
+
 	@GetMapping("courses/{id}")
-	public Course getCourse(@PathVariable("id") String RegNo){
-		return mcourses;
+	public Course getCourse(@PathVariable("id") String CourseNo) {
+		return mcourses.get(CourseNo);
+	}
+
+	@PostMapping("courses")
+	public String addCourse(@RequestBody Course course) {
+		mcourses.put(course.getCid(), course);
+		return "Course successfully added";
+	}
+
+	@DeleteMapping("courses/{id}")
+	public String deleteCourse(@PathVariable("id") String CourseNo) {
+		if (mcourses.get(CourseNo) != null) {
+			mcourses.remove(CourseNo);
+			return "Course successfully deleted";
+		}
+		return "Course not found";
+	}
+
+	@PutMapping("courses/{id}")
+	public String updateCourse(@PathVariable("id") String CourseNo, @RequestBody Course course) {
+		if (mcourses.get(CourseNo) != null) {
+			mcourses.put(course.getCid(), course);
+			return "Course successfully updated";
+		}
+		return "Course not found";
 	}
 }
