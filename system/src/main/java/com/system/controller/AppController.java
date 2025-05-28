@@ -59,4 +59,14 @@ public class AppController {
 		}
 		return "Student not found";
 	}
+	
+	@GetMapping("courses")
+	public Map<String, Course> getCourses(){
+		return mcourses;
+	}
+	
+	@GetMapping("courses/{id}")
+	public Course getCourse(@PathVariable("id") String RegNo){
+		return mcourses;
+	}
 }
